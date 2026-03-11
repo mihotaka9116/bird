@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap');
+
+@theme {
+  --font-serif: "Sawarabi Mincho", serif;
+  --color-ocean: #0077b6;
+  --color-sky: #f0f8ff;
+  --color-deep-sky: #c2e0ff;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth; /* スムーズスクロール */
+  }
+  body {
+    @apply font-serif text-ocean;
+    background: linear-gradient(180deg, var(--color-sky) 0%, #ffffff 50%, var(--color-deep-sky) 100%) fixed;
+  }
+}
+
+/* 泡の上昇アニメーション */
+@keyframes rise {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  20% { opacity: 0.5; }
+  100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+}
+
+.bubble {
+  @apply fixed -bottom-12 rounded-full pointer-events-none z-0;
+  background: rgba(173, 216, 230, 0.4);
+  animation: rise 10s infinite ease-in;
+}
+
+/* 羽のふわふわしたアニメーション */
+@keyframes floatingFeather {
+  0%, 100% { transform: translateY(0) rotate(-10deg); }
+  50% { transform: translateY(-12px) rotate(5deg); }
+}
+
+.section-feather {
+  @apply opacity-0 transition-all duration-700 translate-y-5;
+  color: #88b0d0;
+}
+
+section:hover .section-feather {
+  @apply opacity-100 translate-y-0 -rotate-10;
+  animation: floatingFeather 3s ease-in-out infinite;
+}
+
+/* スクロール時のフェードイン用 */
+section {
+  @apply opacity-0 translate-y-8 transition-all duration-1000;
+}
+
+.is-visible {
+  @apply !opacity-100 !translate-y-0;
+}
