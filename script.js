@@ -67,3 +67,32 @@ window.addEventListener('DOMContentLoaded', () => {
     initPoemToggle();
     initScrollEffects();
 });
+
+// 他の関数の後に、これを追加してください
+function initMobileMenu() {
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav-menu');
+    const navLinks = document.querySelectorAll('#nav-menu a');
+
+    // ボタンクリックで開閉
+    toggle.addEventListener('click', () => {
+        toggle.classList.toggle('active');
+        nav.classList.toggle('active');
+    });
+
+    // メニュー内のリンクをクリックしたら閉じる（ページ内リンク用）
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            toggle.classList.remove('active');
+            nav.classList.remove('active');
+        });
+    });
+}
+
+// window.addEventListener('DOMContentLoaded', ...) 内で呼び出す
+window.addEventListener('DOMContentLoaded', () => {
+    initBubbles();
+    initPoemToggle();
+    initScrollEffects();
+    initMobileMenu(); // これを追加！
+});
