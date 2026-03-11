@@ -13,8 +13,7 @@
 
     <header>
         <a href="#" class="logo">
-            <i data-lucide="bird" class="icon-ocean"></i>
-            <span>Mon poème</span>
+            <i data-lucide="bird"></i> <span>Mon poème</span>
         </a>
         <nav>
             <ul>
@@ -28,9 +27,7 @@
 
     <div class="hero">
         <div class="hero-content">
-            <div class="hero-bird-wrapper">
-                <i data-lucide="bird" class="hero-bird"></i>
-            </div>
+            <i data-lucide="bird" class="hero-bird drop-shadow-glow"></i>
             <h1>Mon poème</h1>
         </div>
     </div>
@@ -45,16 +42,22 @@
             <h2 class="section-title">名言集 <i data-lucide="feather" class="section-feather"></i></h2>
             <div class="poem-grid">
                 <div class="poem-card">
-                    <p class="poem-content">なみだはにんげんの<br>一ばん小さな海です</p>
-                    <p class="poem-author">寺山修司</p>
+                    <div class="card-inner">
+                        <p class="poem-content">なみだはにんげんの<br>一ばん小さな海です</p>
+                        <p class="poem-author">― 寺山修司</p>
+                    </div>
                 </div>
                 <div class="poem-card">
-                    <p class="poem-content">心で見なくちゃ、<br>ものごとはよく見えないってことさ。<br>かんじんなことは、目に見えないんだよ。</p>
-                    <p class="poem-author">サン＝テグジュペリ</p>
+                    <div class="card-inner">
+                        <p class="poem-content">心で見なくちゃ、<br>ものごとはよく見えないってことさ。<br>かんじんなことは、目に見えないんだよ。</p>
+                        <p class="poem-author">― サン＝テグジュペリ</p>
+                    </div>
                 </div>
                 <div class="poem-card">
-                    <p class="poem-content">月が綺麗ですね</p>
-                    <p class="poem-author">夏目漱石</p>
+                    <div class="card-inner">
+                        <p class="poem-content">月が綺麗ですね</p>
+                        <p class="poem-author">― 夏目漱石</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -76,7 +79,7 @@
         </section>
     </main>
 
-    <a href="#" id="back-to-top" class="hidden">
+    <a href="#" id="back-to-top" class="hidden animate-feather">
         <i data-lucide="feather"></i>
     </a>
 
