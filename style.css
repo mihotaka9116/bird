@@ -129,3 +129,76 @@ footer {
         padding: 40px 20px;
     }
 }
+
+/* --- ハンバーガーボタンの基本 --- */
+.menu-toggle {
+    display: none; /* PCでは隠す */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 101;
+    padding: 0;
+}
+
+.bar {
+    width: 100%;
+    height: 2px;
+    background-color: var(--ocean);
+    transition: all 0.3s ease;
+}
+
+/* --- スマホ用スタイル (900px以下) --- */
+@media (max-width: 900px) {
+    .menu-toggle {
+        display: flex; /* スマホで表示 */
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%; /* 最初は画面外に隠す */
+        width: 70%;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        transition: right 0.5s ease;
+        z-index: 100;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    nav.active {
+        right: 0; /* 画面内にスライド */
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    nav a {
+        font-size: 1.2rem;
+    }
+
+    /* ×ボタンに変化するアニメーション */
+    .menu-toggle.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .menu-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* ヒーロータイトルのサイズ調整 */
+    .hero h1 {
+        font-size: 2rem;
+    }
+}
