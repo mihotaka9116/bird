@@ -89,3 +89,43 @@ section:hover .section-feather { opacity: 1; animation: floatingFeather 3s infin
 #back-to-top { position: fixed; right: 30px; bottom: 30px; width: 60px; height: 60px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); color: #88b0d0; z-index: 1000; text-decoration: none; transition: 0.3s; }
 .hidden { opacity: 0; pointer-events: none; }
 footer { text-align: center; padding: 4rem 0; font-size: 0.8rem; opacity: 0.6; }
+
+footer {
+    width: 100%;
+    padding: 60px 0; /* 上下にゆとりを持たせる */
+    margin-top: 100px;
+    background: rgba(255, 255, 255, 0.5); /* 背景に少し白を混ぜる */
+    backdrop-filter: blur(5px);
+    text-align: center; /* テキストをセンター配置 */
+    position: relative;
+    z-index: 10;
+}
+
+.footer-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    color: var(--ocean);
+    opacity: 0.8;
+}
+
+.footer-sub {
+    margin-top: 15px;
+    font-size: 0.75rem;
+    opacity: 0.5;
+    font-style: italic;
+}
+
+/* スマホ等で改行するための設定 */
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .mobile-only {
+        display: block;
+    }
+    footer {
+        padding: 40px 20px;
+    }
+}
