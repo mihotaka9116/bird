@@ -1,7 +1,7 @@
-// Lucideアイコンの初期化
+// 1. アイコンを表示
 lucide.createIcons();
 
-// 1. 泡の生成（スピードをゆっくりに）
+// 2. 泡をゆっくり生成
 function initBubbles() {
     const container = document.getElementById('bubbles-container');
     if (!container) return;
@@ -10,8 +10,7 @@ function initBubbles() {
         const bubble = document.createElement('div');
         const size = Math.random() * 40 + 10 + 'px';
         const left = Math.random() * 100 + 'vw';
-        
-        // ★ スピードを「15秒〜25秒」に設定
+        // スピードを15秒〜25秒に設定
         const duration = Math.random() * 10 + 15 + 's';
 
         bubble.className = 'bubble';
@@ -21,17 +20,16 @@ function initBubbles() {
         bubble.style.animationDuration = duration;
 
         container.appendChild(bubble);
-
-        // 25秒後に削除
+        // アニメーションが終わる頃に削除
         setTimeout(() => { bubble.remove(); }, 25000);
     };
 
-    setInterval(createBubble, 2000); 
-    // 初回起動分
-    for (let i = 0; i < 5; i++) { setTimeout(createBubble, i * 500); }
+    setInterval(createBubble, 2000);
+    // 最初にある程度出しておく
+    for (let i = 0; i < 6; i++) { setTimeout(createBubble, i * 400); }
 }
 
-// 2. クリックで名言を表示する機能
+// 3. クリックで名言を表示
 function initPoemToggle() {
     const cards = document.querySelectorAll('.clickable-card');
     cards.forEach(card => {
@@ -41,7 +39,7 @@ function initPoemToggle() {
     });
 }
 
-// 3. スクロールエフェクト
+// 4. スクロール監視（フェードインと戻るボタン）
 function initScrollEffects() {
     const backToTop = document.getElementById('back-to-top');
     const observer = new IntersectionObserver((entries) => {
@@ -55,7 +53,7 @@ function initScrollEffects() {
     document.querySelectorAll('section').forEach(section => observer.observe(section));
 
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
+        if (window.scrollY > 400) {
             backToTop.classList.remove('hidden');
         } else {
             backToTop.classList.add('hidden');
@@ -63,7 +61,7 @@ function initScrollEffects() {
     });
 }
 
-// まとめて実行
+// ページ読み込み完了時にすべて起動
 window.addEventListener('DOMContentLoaded', () => {
     initBubbles();
     initPoemToggle();
