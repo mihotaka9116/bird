@@ -34,28 +34,41 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// 泡を作る関数
-function createBubbles() {
+// 泡を管理する関数
+function startBubbleSystem() {
     const container = document.getElementById('bubbles-container');
-    if (!container) return; // コンテナがない場合は何もしない
+    if (!container) return;
 
-    for (let i = 0; i < 20; i++) {
+    // 泡を生成する処理
+    const createBubble = () => {
         const bubble = document.createElement('div');
-        bubble.className = 'bubble';
+        const id = Date.now();
         
-        // ランダムな大きさと配置
-        const size = Math.random() * 60 + 20 + 'px';
+        // Reactコードのロジックを反映
+        const size = Math.random() * 40 + 10 + 'px';
+        const left = Math.random() * 100 + 'vw';
+        const duration = Math.random() * 5 + 7 + 's';
+
+        bubble.className = 'bubble';
         bubble.style.width = size;
         bubble.style.height = size;
-        bubble.style.left = Math.random() * 100 + 'vw';
-        
-        // アニメーションのタイミングをバラバラにする
-        bubble.style.animationDelay = Math.random() * 8 + 's';
-        bubble.style.animationDuration = Math.random() * 5 + 7 + 's'; // 7〜12秒で上昇
-        
+        bubble.style.left = left;
+        bubble.style.animationDuration = duration;
+
         container.appendChild(bubble);
-    }
+
+        // アニメーション終了後に要素を削除（Reactのfilterに相当）
+        setTimeout(() => {
+            bubble.remove();
+        }, 12000); 
+    };
+
+    // 1.5秒ごとに新しい泡を作る（ReactのsetIntervalに相当）
+    setInterval(createBubble, 1500);
+
+    // 最初にある程度泡が出ていてほしい場合は、最初だけ数個作る
+    for(let i=0; i<5; i++) createBubble();
 }
 
-// 画面が読み込まれたら実行
-window.addEventListener('DOMContentLoaded', createBubbles);
+// 実行
+window.addEventListener('DOMContentLoaded', startBubbleSystem);
