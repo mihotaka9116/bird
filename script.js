@@ -10,8 +10,7 @@ function initBubbles() {
         const bubble = document.createElement('div');
         const size = Math.random() * 40 + 10 + 'px';
         const left = Math.random() * 100 + 'vw';
-        // スピードを15秒〜25秒に設定
-        const duration = Math.random() * 10 + 15 + 's';
+        const duration = Math.random() * 10 + 15 + 's'; // スピードを15秒〜25秒に設定
 
         bubble.className = 'bubble';
         bubble.style.width = size;
@@ -20,12 +19,10 @@ function initBubbles() {
         bubble.style.animationDuration = duration;
 
         container.appendChild(bubble);
-        // アニメーションが終わる頃に削除
         setTimeout(() => { bubble.remove(); }, 25000);
     };
 
     setInterval(createBubble, 2000);
-    // 最初にある程度出しておく
     for (let i = 0; i < 6; i++) { setTimeout(createBubble, i * 400); }
 }
 
@@ -34,12 +31,34 @@ function initPoemToggle() {
     const cards = document.querySelectorAll('.clickable-card');
     cards.forEach(card => {
         card.addEventListener('click', () => {
+            // クラス 'is-open' を付け外しする
             card.classList.toggle('is-open');
         });
     });
 }
 
-// 4. スクロール監視（フェードインと戻るボタン）
+// 4. ハンバーガーメニューの制御
+function initMobileMenu() {
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav-menu');
+    const navLinks = document.querySelectorAll('#nav-menu a');
+
+    if (!toggle || !nav) return;
+
+    toggle.addEventListener('click', () => {
+        toggle.classList.toggle('active');
+        nav.classList.toggle('active');
+    });
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            toggle.classList.remove('active');
+            nav.classList.remove('active');
+        });
+    });
+}
+
+// 5. スクロール監視（フェードインと戻るボタン）
 function initScrollEffects() {
     const backToTop = document.getElementById('back-to-top');
     const observer = new IntersectionObserver((entries) => {
@@ -61,38 +80,10 @@ function initScrollEffects() {
     });
 }
 
-// ページ読み込み完了時にすべて起動
+// すべての読み込みが終わったら、各機能を一度だけ起動する
 window.addEventListener('DOMContentLoaded', () => {
     initBubbles();
     initPoemToggle();
     initScrollEffects();
-});
-
-// 他の関数の後に、これを追加してください
-function initMobileMenu() {
-    const toggle = document.getElementById('menu-toggle');
-    const nav = document.getElementById('nav-menu');
-    const navLinks = document.querySelectorAll('#nav-menu a');
-
-    // ボタンクリックで開閉
-    toggle.addEventListener('click', () => {
-        toggle.classList.toggle('active');
-        nav.classList.toggle('active');
-    });
-
-    // メニュー内のリンクをクリックしたら閉じる（ページ内リンク用）
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            toggle.classList.remove('active');
-            nav.classList.remove('active');
-        });
-    });
-}
-
-// window.addEventListener('DOMContentLoaded', ...) 内で呼び出す
-window.addEventListener('DOMContentLoaded', () => {
-    initBubbles();
-    initPoemToggle();
-    initScrollEffects();
-    initMobileMenu(); // これを追加！
+    initMobileMenu();
 });
