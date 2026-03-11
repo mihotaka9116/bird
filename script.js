@@ -1,3 +1,9 @@
+// script.js の冒頭に追加
+document.body.classList.add('js-enabled');
+
+lucide.createIcons();
+// ...（他の関数はそのまま）
+
 // 1. アイコンを表示
 lucide.createIcons();
 
