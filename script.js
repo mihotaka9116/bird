@@ -1,18 +1,21 @@
 // 1. Lucideアイコンの表示
 lucide.createIcons();
 
-// 2. 泡の生成ロジック (React版の移植)
+// 1. Lucideアイコン
+lucide.createIcons();
+
+// 2. 泡の生成（スピードをゆっくりに）
 function initBubbles() {
     const container = document.getElementById('bubbles-container');
     if (!container) return;
 
     const createBubble = () => {
         const bubble = document.createElement('div');
-        
-        // React版と同じ計算
         const size = Math.random() * 40 + 10 + 'px';
         const left = Math.random() * 100 + 'vw';
-        const duration = Math.random() * 5 + 7 + 's';
+        
+        // ★ スピードを「15秒〜25秒」に設定（以前よりかなりゆっくり）
+        const duration = Math.random() * 10 + 15 + 's';
 
         bubble.className = 'bubble';
         bubble.style.width = size;
@@ -22,25 +25,28 @@ function initBubbles() {
 
         container.appendChild(bubble);
 
-        // 12秒後に削除（Reactのメモリ管理を再現）
-        setTimeout(() => {
-            bubble.remove();
-        }, 12000);
+        // 泡が消えるまでの時間も少し伸ばす
+        setTimeout(() => { bubble.remove(); }, 25000);
     };
 
-    // 1.5秒ごとに新しい泡を生成
-    setInterval(createBubble, 1500);
-
-    // 初回起動時にいくつか生成
-    for (let i = 0; i < 6; i++) {
-        setTimeout(createBubble, i * 300);
-    }
+    setInterval(createBubble, 2000); // 泡の間隔も少しゆったりに
+    for (let i = 0; i < 5; i++) { setTimeout(createBubble, i * 500); }
 }
 
-// 3. スクロールによるフェードインとトップへ戻るボタン
+// 3. クリックで名言を表示する機能
+function initPoemToggle() {
+    const cards = document.querySelectorAll('.clickable-card');
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            // クリックしたカードに 'is-open' クラスを付け外しする
+            card.classList.toggle('is-open');
+        });
+    });
+}
+
+// 4. その他のスクロールエフェクト
 function initScrollEffects() {
     const backToTop = document.getElementById('back-to-top');
-    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -59,6 +65,12 @@ function initScrollEffects() {
         }
     });
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+    initBubbles();
+    initPoemToggle();
+    initScrollEffects();
+});
 
 // すべての読み込みが終わったら開始
 window.addEventListener('DOMContentLoaded', () => {
