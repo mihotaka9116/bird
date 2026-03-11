@@ -1,50 +1,15 @@
+// 1. Lucideアイコンの表示
 lucide.createIcons();
 
-// 泡の生成
-const container = document.getElementById('bubbles-container');
-for (let i = 0; i < 15; i++) {
-    const bubble = document.createElement('div');
-    bubble.className = 'bubble';
-    const size = Math.random() * 50 + 20 + 'px';
-    bubble.style.width = size;
-    bubble.style.height = size;
-    bubble.style.left = Math.random() * 100 + 'vw';
-    bubble.style.animationDelay = Math.random() * 8 + 's';
-    container.appendChild(bubble);
-}
-
-// セクションの出現アニメーション
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-        }
-    });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('section').forEach(section => observer.observe(section));
-
-// トップに戻るボタンの制御
-const backToTop = document.getElementById('back-to-top');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) {
-        backToTop.classList.remove('hidden');
-    } else {
-        backToTop.classList.add('hidden');
-    }
-});
-
-// 泡を管理する関数
-function startBubbleSystem() {
+// 2. 泡の生成ロジック (React版の移植)
+function initBubbles() {
     const container = document.getElementById('bubbles-container');
     if (!container) return;
 
-    // 泡を生成する処理
     const createBubble = () => {
         const bubble = document.createElement('div');
-        const id = Date.now();
         
-        // Reactコードのロジックを反映
+        // React版と同じ計算
         const size = Math.random() * 40 + 10 + 'px';
         const left = Math.random() * 100 + 'vw';
         const duration = Math.random() * 5 + 7 + 's';
@@ -57,18 +22,46 @@ function startBubbleSystem() {
 
         container.appendChild(bubble);
 
-        // アニメーション終了後に要素を削除（Reactのfilterに相当）
+        // 12秒後に削除（Reactのメモリ管理を再現）
         setTimeout(() => {
             bubble.remove();
-        }, 12000); 
+        }, 12000);
     };
 
-    // 1.5秒ごとに新しい泡を作る（ReactのsetIntervalに相当）
+    // 1.5秒ごとに新しい泡を生成
     setInterval(createBubble, 1500);
 
-    // 最初にある程度泡が出ていてほしい場合は、最初だけ数個作る
-    for(let i=0; i<5; i++) createBubble();
+    // 初回起動時にいくつか生成
+    for (let i = 0; i < 6; i++) {
+        setTimeout(createBubble, i * 300);
+    }
 }
 
-// 実行
-window.addEventListener('DOMContentLoaded', startBubbleSystem);
+// 3. スクロールによるフェードインとトップへ戻るボタン
+function initScrollEffects() {
+    const backToTop = document.getElementById('back-to-top');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTop.classList.remove('hidden');
+        } else {
+            backToTop.classList.add('hidden');
+        }
+    });
+}
+
+// すべての読み込みが終わったら開始
+window.addEventListener('DOMContentLoaded', () => {
+    initBubbles();
+    initScrollEffects();
+});
