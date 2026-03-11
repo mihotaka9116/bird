@@ -1,107 +1,91 @@
 @import url('https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap');
 
 :root {
-  --color-ocean: #0077b6;
-  --color-sky: #f0f8ff;
-  --color-deep-sky: #c2e0ff;
-  --font-serif: "Sawarabi Mincho", serif;
+    --ocean: #0077b6;
+    --sky: #f0f8ff;
+    --deep-sky: #c2e0ff;
+    --font-serif: "Sawarabi Mincho", serif;
 }
 
-/* ベース */
+/* 全体設定 */
 html { scroll-behavior: smooth; }
 body {
-  font-family: var(--font-serif);
-  color: var(--color-ocean);
-  background: linear-gradient(180deg, var(--color-sky) 0%, #ffffff 50%, var(--color-deep-sky) 100%) fixed;
-  margin: 0;
-  overflow-x: hidden;
+    font-family: var(--font-serif);
+    color: var(--ocean);
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(180deg, var(--sky) 0%, #ffffff 50%, var(--deep-sky) 100%) fixed;
+    overflow-x: hidden;
 }
 
 /* ヘッダー */
 header {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 1rem 5%; background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 5%; background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
 }
-.logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--color-ocean); font-weight: bold; font-size: 1.25rem; }
+.logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--ocean); font-weight: bold; }
 nav ul { display: flex; list-style: none; gap: 1.5rem; margin: 0; padding: 0; }
-nav a { text-decoration: none; color: var(--color-ocean); font-size: 0.875rem; transition: opacity 0.3s; }
+nav a { text-decoration: none; color: var(--ocean); font-size: 0.9rem; }
 
-/* ヒーローエリア */
+/* ヒーロー */
 .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-.hero-bird { width: 6rem; height: 6rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8)); }
-.hero h1 { font-size: 3rem; letter-spacing: 0.3em; margin: 0; }
+.hero-bird { width: 80px; height: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 15px white); }
+.hero h1 { font-size: 3rem; letter-spacing: 0.3em; margin: 0; text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
 
-/* 泡（ゆっくり設定） */
+/* 泡（ゆっくり昇る） */
 .bubble {
-  position: fixed; bottom: -100px; border-radius: 50%; pointer-events: none; z-index: 0;
-  background: rgba(173, 216, 230, 0.4);
-  animation: rise linear forwards;
+    position: fixed; bottom: -100px; border-radius: 50%; pointer-events: none; z-index: 0;
+    background: rgba(173, 216, 230, 0.4);
+    animation: rise linear forwards;
 }
 @keyframes rise {
-  0% { transform: translateY(0) scale(1); opacity: 0; }
-  20% { opacity: 0.5; }
-  100% { transform: translateY(-125vh) scale(1.5); opacity: 0; }
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    20% { opacity: 0.5; }
+    100% { transform: translateY(-125vh) scale(1.5); opacity: 0; }
 }
 
-/* セクション出現アニメーション */
+/* セクション出現 */
 section {
-  max-width: 900px; margin: 8rem auto; padding: 0 1.25rem; text-align: center;
-  opacity: 0; transform: translateY(2rem); transition: all 1s ease-out;
+    max-width: 900px; margin: 10rem auto; padding: 0 20px; text-align: center;
+    opacity: 0; transform: translateY(30px); transition: all 1s ease;
 }
 section.is-visible { opacity: 1; transform: translateY(0); }
 
-/* 名言カード (クリック対応) */
-.poem-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem; margin-top: 3rem;
-}
+/* 名言カード */
+.poem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; }
 .clickable-card {
-  background: rgba(255, 255, 255, 0.5); padding: 2.5rem; border-radius: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); cursor: pointer;
-  transition: all 0.5s ease; min-height: 100px;
-  display: flex; flex-direction: column; justify-content: center;
+    background: rgba(255, 255, 255, 0.6); padding: 2.5rem; border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); cursor: pointer; transition: 0.4s;
+    min-height: 100px; display: flex; flex-direction: column; justify-content: center;
 }
-.clickable-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.8); }
+.clickable-card:hover { background: white; transform: translateY(-5px); }
 
-.poem-author { font-size: 0.9rem; margin: 0; opacity: 0.8; transition: all 0.3s; }
+.poem-author { font-size: 1.1rem; margin: 0; opacity: 0.8; }
 
-/* 最初は隠す内容 */
+/* クリックで開く仕組み */
 .hidden-content {
-  max-height: 0; opacity: 0; overflow: hidden;
-  transition: all 0.8s ease; margin-top: 0; line-height: 1.6;
+    max-height: 0; opacity: 0; overflow: hidden;
+    transition: all 0.7s ease-in-out;
 }
-.is-open .hidden-content { max-height: 300px; opacity: 1; margin-top: 1.5rem; }
-.is-open .poem-author { font-weight: bold; opacity: 1; }
+.is-open .hidden-content { max-height: 200px; opacity: 1; margin-top: 1.5rem; }
+.poem-text { line-height: 1.8; font-size: 1rem; }
 
-/* スキル・ボタンなど */
-.skill-tags span {
-  display: inline-block; background: white; border: 1px solid #c2e0ff;
-  padding: 0.75rem 1.5rem; border-radius: 9999px; margin: 0.25rem; font-size: 0.875rem;
-}
-.contact-box { border: 2px dashed #88b0d0; padding: 4rem; border-radius: 2.5rem; background: rgba(255, 255, 255, 0.4); }
-.mail-button {
-  display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 2.5rem;
-  border: 1px solid var(--color-ocean); border-radius: 9999px;
-  text-decoration: none; color: var(--color-ocean); transition: 0.3s;
-}
-.mail-button:hover { background: var(--color-ocean); color: white; }
-
-/* トップへ戻る羽 */
-#back-to-top {
-  position: fixed; right: 2rem; bottom: 2rem; width: 3.5rem; height: 3.5rem;
-  background: white; border-radius: 50%; display: flex; align-items: center;
-  justify-content: center; shadow: 0 4px 15px rgba(0,0,0,0.1);
-  color: #88b0d0; z-index: 100; text-decoration: none; transition: 0.4s;
-}
-#back-to-top.hidden { opacity: 0; pointer-events: none; }
-
-/* 羽の浮遊 */
+/* 羽アニメーション */
 @keyframes floatingFeather {
-  0%, 100% { transform: translateY(0) rotate(-10deg); }
-  50% { transform: translateY(-12px) rotate(5deg); }
+    0%, 100% { transform: translateY(0) rotate(-10deg); }
+    50% { transform: translateY(-12px) rotate(5deg); }
 }
-.animate-feather { animation: floatingFeather 3s ease-in-out infinite; }
-.section-feather { color: #88b0d0; margin-left: 0.5rem; opacity: 0; display: inline-block; transition: 0.5s; }
+.animate-feather { animation: floatingFeather 3s infinite ease-in-out; }
+.section-feather { color: #88b0d0; margin-left: 10px; opacity: 0; display: inline-block; transition: 0.5s; }
 section:hover .section-feather { opacity: 1; animation: floatingFeather 3s infinite; }
+
+/* スキル・コンタクト・フッター */
+.skill-tags span { display: inline-block; padding: 10px 20px; background: white; border: 1px solid #c2e0ff; border-radius: 25px; margin: 5px; }
+.contact-box { border: 2px dashed #88b0d0; padding: 4rem; border-radius: 40px; background: rgba(255,255,255,0.3); }
+.mail-button { display: inline-flex; align-items: center; gap: 0.5rem; padding: 12px 30px; border: 1px solid var(--ocean); border-radius: 30px; text-decoration: none; color: var(--ocean); transition: 0.3s; margin-top: 1rem; }
+.mail-button:hover { background: var(--ocean); color: white; }
+#back-to-top { position: fixed; right: 30px; bottom: 30px; width: 60px; height: 60px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); color: #88b0d0; z-index: 1000; text-decoration: none; transition: 0.3s; }
+.hidden { opacity: 0; pointer-events: none; }
+footer { text-align: center; padding: 4rem 0; font-size: 0.8rem; opacity: 0.6; }
