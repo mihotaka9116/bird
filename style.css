@@ -82,3 +82,48 @@ section { @apply max-w-[900px] mx-auto my-32 px-5 text-center opacity-0 translat
   .text-shadow-glow { text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
   .drop-shadow-glow { filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8)); }
 }
+
+/* 泡のスピードをゆっくりに修正（durationを長くする） */
+.bubble {
+  @apply fixed -bottom-24 rounded-full pointer-events-none z-0;
+  background: rgba(173, 216, 230, 0.4);
+  animation-name: rise;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  /* JSから渡される秒数にゆとりを持たせるため、ここでは定義のみ */
+}
+
+/* カードのスタイル修正 */
+.clickable-card {
+    cursor: pointer;
+    min-height: 120px; /* 最初からある程度の高さを確保 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all 0.5s ease;
+}
+
+.clickable-card:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* 最初は隠しておく名言 */
+.hidden-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.8s ease;
+    margin-top: 0;
+}
+
+/* クリックして開いた時のスタイル */
+.is-open .hidden-content {
+    max-height: 200px;
+    opacity: 1;
+    margin-top: 20px;
+}
+
+.is-open .poem-author {
+    font-weight: bold;
+    color: var(--color-ocean);
+}
