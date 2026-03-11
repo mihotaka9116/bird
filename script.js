@@ -33,3 +33,29 @@ window.addEventListener('scroll', () => {
         backToTop.classList.add('hidden');
     }
 });
+
+// 泡を作る関数
+function createBubbles() {
+    const container = document.getElementById('bubbles-container');
+    if (!container) return; // コンテナがない場合は何もしない
+
+    for (let i = 0; i < 20; i++) {
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        
+        // ランダムな大きさと配置
+        const size = Math.random() * 60 + 20 + 'px';
+        bubble.style.width = size;
+        bubble.style.height = size;
+        bubble.style.left = Math.random() * 100 + 'vw';
+        
+        // アニメーションのタイミングをバラバラにする
+        bubble.style.animationDelay = Math.random() * 8 + 's';
+        bubble.style.animationDuration = Math.random() * 5 + 7 + 's'; // 7〜12秒で上昇
+        
+        container.appendChild(bubble);
+    }
+}
+
+// 画面が読み込まれたら実行
+window.addEventListener('DOMContentLoaded', createBubbles);
