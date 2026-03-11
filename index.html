@@ -1,12 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon poème</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="bubbles-container"></div>
+
+    <header>
+        <div class="logo">
+            <i data-lucide="bird"></i> Mon poème
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#concept">Concept</a></li>
+                <li><a href="#poem-section">名言集</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Mon poème</h1>
+    </div>
+
+    <main>
+        <section id="concept">
+            <h2>Concept <i data-lucide="feather" class="section-feather"></i></h2>
+            <p>印象に残った言葉たちが、泡のように浮かぶ場所。</p>
+        </section>
+        
+        <section id="poem-section">
+            <h2>名言集</h2>
+            <p>ここにあなたの好きな言葉を並べましょう。</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Mon poème.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
 </html>
