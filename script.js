@@ -1,10 +1,7 @@
-// 1. Lucideアイコンの表示
+// Lucideアイコンの初期化
 lucide.createIcons();
 
-// 1. Lucideアイコン
-lucide.createIcons();
-
-// 2. 泡の生成（スピードをゆっくりに）
+// 1. 泡の生成（スピードをゆっくりに）
 function initBubbles() {
     const container = document.getElementById('bubbles-container');
     if (!container) return;
@@ -14,7 +11,7 @@ function initBubbles() {
         const size = Math.random() * 40 + 10 + 'px';
         const left = Math.random() * 100 + 'vw';
         
-        // ★ スピードを「15秒〜25秒」に設定（以前よりかなりゆっくり）
+        // ★ スピードを「15秒〜25秒」に設定
         const duration = Math.random() * 10 + 15 + 's';
 
         bubble.className = 'bubble';
@@ -25,26 +22,26 @@ function initBubbles() {
 
         container.appendChild(bubble);
 
-        // 泡が消えるまでの時間も少し伸ばす
+        // 25秒後に削除
         setTimeout(() => { bubble.remove(); }, 25000);
     };
 
-    setInterval(createBubble, 2000); // 泡の間隔も少しゆったりに
+    setInterval(createBubble, 2000); 
+    // 初回起動分
     for (let i = 0; i < 5; i++) { setTimeout(createBubble, i * 500); }
 }
 
-// 3. クリックで名言を表示する機能
+// 2. クリックで名言を表示する機能
 function initPoemToggle() {
     const cards = document.querySelectorAll('.clickable-card');
     cards.forEach(card => {
         card.addEventListener('click', () => {
-            // クリックしたカードに 'is-open' クラスを付け外しする
             card.classList.toggle('is-open');
         });
     });
 }
 
-// 4. その他のスクロールエフェクト
+// 3. スクロールエフェクト
 function initScrollEffects() {
     const backToTop = document.getElementById('back-to-top');
     const observer = new IntersectionObserver((entries) => {
@@ -66,14 +63,9 @@ function initScrollEffects() {
     });
 }
 
+// まとめて実行
 window.addEventListener('DOMContentLoaded', () => {
     initBubbles();
     initPoemToggle();
-    initScrollEffects();
-});
-
-// すべての読み込みが終わったら開始
-window.addEventListener('DOMContentLoaded', () => {
-    initBubbles();
     initScrollEffects();
 });
