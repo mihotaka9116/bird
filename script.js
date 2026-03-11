@@ -1,54 +1,52 @@
-// script.js の冒頭に追加
 document.body.classList.add('js-enabled');
 
-lucide.createIcons();
-// ...（他の関数はそのまま）
+window.addEventListener('DOMContentLoaded', () => {
+    // 1. Lucideアイコンの初期化
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 
-// 1. アイコンを表示
-lucide.createIcons();
+    // 2. 泡の生成
+    initBubbles();
 
-// 2. 泡をゆっくり生成
+    // 3. 名言の開閉
+    initPoemToggle();
+
+    // 4. スマホメニュー
+    initMobileMenu();
+
+    // 5. スクロール監視
+    initScrollEffects();
+});
+
 function initBubbles() {
     const container = document.getElementById('bubbles-container');
     if (!container) return;
-
     const createBubble = () => {
         const bubble = document.createElement('div');
-        const size = Math.random() * 40 + 10 + 'px';
-        const left = Math.random() * 100 + 'vw';
-        const duration = Math.random() * 10 + 15 + 's'; // スピードを15秒〜25秒に設定
-
         bubble.className = 'bubble';
-        bubble.style.width = size;
-        bubble.style.height = size;
-        bubble.style.left = left;
-        bubble.style.animationDuration = duration;
-
+        bubble.style.width = Math.random() * 40 + 10 + 'px';
+        bubble.style.height = bubble.style.width;
+        bubble.style.left = Math.random() * 100 + 'vw';
+        bubble.style.animationDuration = Math.random() * 10 + 15 + 's';
         container.appendChild(bubble);
-        setTimeout(() => { bubble.remove(); }, 25000);
+        setTimeout(() => bubble.remove(), 25000);
     };
-
     setInterval(createBubble, 2000);
-    for (let i = 0; i < 6; i++) { setTimeout(createBubble, i * 400); }
 }
 
-// 3. クリックで名言を表示
 function initPoemToggle() {
     const cards = document.querySelectorAll('.clickable-card');
     cards.forEach(card => {
         card.addEventListener('click', () => {
-            // クラス 'is-open' を付け外しする
             card.classList.toggle('is-open');
         });
     });
 }
 
-// 4. ハンバーガーメニューの制御
 function initMobileMenu() {
     const toggle = document.getElementById('menu-toggle');
     const nav = document.getElementById('nav-menu');
-    const navLinks = document.querySelectorAll('#nav-menu a');
-
     if (!toggle || !nav) return;
 
     toggle.addEventListener('click', () => {
@@ -56,7 +54,7 @@ function initMobileMenu() {
         nav.classList.toggle('active');
     });
 
-    navLinks.forEach(link => {
+    document.querySelectorAll('#nav-menu a').forEach(link => {
         link.addEventListener('click', () => {
             toggle.classList.remove('active');
             nav.classList.remove('active');
@@ -64,32 +62,18 @@ function initMobileMenu() {
     });
 }
 
-// 5. スクロール監視（フェードインと戻るボタン）
 function initScrollEffects() {
     const backToTop = document.getElementById('back-to-top');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('is-visible');
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('section').forEach(section => observer.observe(section));
+    document.querySelectorAll('section').forEach(s => observer.observe(s));
 
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 400) {
-            backToTop.classList.remove('hidden');
-        } else {
-            backToTop.classList.add('hidden');
-        }
+        if (window.scrollY > 400) backToTop?.classList.remove('hidden');
+        else backToTop?.classList.add('hidden');
     });
 }
-
-// すべての読み込みが終わったら、各機能を一度だけ起動する
-window.addEventListener('DOMContentLoaded', () => {
-    initBubbles();
-    initPoemToggle();
-    initScrollEffects();
-    initMobileMenu();
-});
