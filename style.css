@@ -238,3 +238,17 @@ section:hover h2::after {
         transform: translateY(-70%) rotate(-10deg); /* 少し上に浮いて傾く */
     }
 }
+
+/* スマホ版（画面幅768px以下）のスタイル */
+@media (max-width: 768px) {
+    /* セクションタイトルの横にあるアイコン（羽根など）を消す */
+    h2 i, 
+    .section-title i {
+        display: none;
+    }
+
+    /* もし「トップへ戻る」の羽根ボタン自体をスマホで消したい場合 */
+    #back-to-top {
+        display: none;
+    }
+}
