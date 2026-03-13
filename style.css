@@ -239,16 +239,21 @@ section:hover h2::after {
     }
 }
 
-/* スマホ版（画面幅768px以下）のスタイル */
 @media (max-width: 768px) {
-    /* セクションタイトルの横にあるアイコン（羽根など）を消す */
-    h2 i, 
-    .section-title i {
-        display: none;
+    /* タイトルを真ん中に配置するためのリセット */
+    section h2, 
+    .section-title {
+        display: block;    /* 横幅いっぱいに広げる */
+        padding-right: 0;  /* 羽根用の余白を完全に消す */
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center; /* 文字を中央寄せにする */
+        width: 100%;                  /* 親要素に対して100%の幅を持つ */
     }
 
-    /* もし「トップへ戻る」の羽根ボタン自体をスマホで消したい場合 */
-    #back-to-top {
+    /* 念のため、羽根（::after）も確実に消去 */
+    section h2::after {
         display: none;
+        content: none;
     }
 }
