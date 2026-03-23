@@ -47,11 +47,11 @@ nav a { text-decoration: none; color: var(--ocean); font-size: 0.9rem; transitio
     100% { transform: translateY(-125vh) scale(1.5); opacity: 0; }
 }
 
-/* 【重要】セクション出現：初期状態で見えるように調整 */
+/* セクション出現：初期状態で見えるように調整 */
 section {
     max-width: 900px; margin: 8rem auto; padding: 0 20px; text-align: center;
-    opacity: 1; /* 0から1に変更（JSが失敗しても見えるように） */
-    transform: translateY(0); /* 30pxから0に変更 */
+    opacity: 1; 
+    transform: translateY(0); 
     transition: all 1s ease;
     position: relative;
     z-index: 10;
@@ -126,7 +126,7 @@ footer {
 
 /* --- Contactセクション全体の箱 --- */
 .contact-box {
-    border: 1px solid rgba(136, 176, 208, 0.3); /* 点線を細い実線にして上品に */
+    border: 1px solid rgba(136, 176, 208, 0.3); /* 細い実線 */
     padding: 5rem 2rem;
     border-radius: 50px;
     background: rgba(255, 255, 255, 0.2);
